@@ -1,37 +1,35 @@
 /*
- * Lab1A.c
+ * Lab1B-1.c
  *
- * Created: 16/9/2024 4:32:16 pm
+ * Created: 24/9/2024 9:20:08 am
  * Author : sashe
  */ 
+
 #define F_CPU 16000000UL
 #include <avr/io.h>
 #include <util/delay.h>
 
+
 int main(void)
 {
-   DDRD = 0xFF;
-
-
-    while (1) 
-    {
 	
-		PORTD = 0x55;
-		_delay_ms(1000);
-		PORTD = 0xAA;
-		_delay_ms(1000);
+	DDRD |= (1<<2); //setting to 1 as output
+	DDRB &= ~(1 << 0); //setting to 0 as input
+	PORTD &= ~(1<<2);
+	
+	unsigned char press;
+
+
+	while (1)
+	{
+		press = PINB & (1 << 0);;
+		
+		if (press == 0){
+			PORTD &= ~(1 << 2);
+			}else{
+			PORTD |=(1<<2);
+		}
+
 	}
-	
 	return 0;
 }
-
-/*int main(void)
-{
-DDRD = 0xFF;
-while(1)
-{
-PORTD = 0x55;
-}
-}*/
-
-	
